@@ -1,11 +1,12 @@
 import numpy as np
 import utils
+import time
 
 
 class MonteCarloQTable:
     
     # Constructor for Monte Carlo Q-Table instance.
-    def __init__(self, n_actions, state_size, env, bins, gamma=0.9, epsilon=0.1, first_visit=True):
+    def __init__(self, n_actions, state_size, env, bins, gamma=0.9, epsilon=0.1, epsilon_decay=1.0, first_visit=True):
         self.n_actions = n_actions
         self.state_size = state_size
         self.env = env
@@ -13,6 +14,7 @@ class MonteCarloQTable:
         self.gamma = gamma
         self.epsilon = epsilon
         self.first_visit = first_visit
+        self.epsilon_decay = epsilon_decay
         
         self.Q = self.init_q_table()
         self.returns = {}  # NEED A SEPERATE DICT FOR RETURNS!!!!
@@ -83,19 +85,29 @@ class MonteCarloQTable:
     
     
     # Generate episode data, update q-table from it, accumulate reward for output.
-    def train(self, n_episodes=1000, logger=1000):
+    def train(self, n_episodes=1000, logger=1000, LOG_episodes=None, LOG_time=None):
         episode_rewards = []
+        
+        if LOG_episodes is not None:
+            LOG_episodes[0] = 0
+        if LOG_time is not None:
+            LOG_time[0] = time.time()
         
         for episode in range(n_episodes):
             episode_data = self.generate_episode()
             self.update_q_table(episode_data)
+            self.epsilon *= self.epsilon_decay
             
-            episode_rewards.append(sum(r for _, _, r in episode_data))
+            total_reward = sum(r for _, _, r in episode_data)
             
-            # TODO: Log average return per episode.
+            episode_rewards.append(total_reward)
+            
+            if LOG_episodes is not None:
+                LOG_episodes[episode+1] = total_reward
+            if LOG_time is not None:
+                LOG_time[episode+1] = time.time()
+            
             if episode % logger == 0:
                 print(f"Episode {episode}, Average Reward: {np.mean(episode_rewards[-logger:]):.2f}")
-                
-            # TODO: Break and log when completely solved. Add to logger the convergence episode.
-        
-        return self.Q, episode_rewards
+                        
+        return episode_rewards

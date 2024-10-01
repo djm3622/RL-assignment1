@@ -1,11 +1,12 @@
 import numpy as np
 import utils
+import time
 
 
 class Sarsa:
     
     # Constructor for Sarsa.
-    def __init__(self, n_actions, state_size, env, bins, learning_rate=0.1, gamma=0.9, epsilon=0.1):
+    def __init__(self, n_actions, state_size, env, bins, learning_rate=0.1, gamma=0.9, epsilon=0.1, epsilon_decay=1.0):
         self.n_actions = n_actions
         self.state_size = state_size
         self.env = env
@@ -13,6 +14,7 @@ class Sarsa:
         self.lr = learning_rate
         self.gamma = gamma
         self.epsilon = epsilon
+        self.epsilon_decay = epsilon_decay
         
         self.Q = self.init_q_table()
     
@@ -53,16 +55,22 @@ class Sarsa:
     # Given some episodes and some amount of steps (per each episode), 
     # simulate environment, get discrete state, get next action according to policy,
     # update the q-table index.
-    def train(self, n_episodes=1000, max_steps=300, logger=1000):
+    def train(self, n_episodes=1000, logger=1000, LOG_episodes=None, LOG_time=None):
         episode_rewards = []
+        
+        if LOG_episodes is not None:
+            LOG_episodes[0] = 0
+        if LOG_time is not None:
+            LOG_time[0] = time.time()
         
         for episode in range(n_episodes):
             state, _ = self.env.reset() # reset env
             state = utils.discretize_state(state, self.bins)
             action = self.choose_action(state)
             total_reward = 0
+            self.epsilon *= self.epsilon_decay
             
-            for step in range(max_steps):
+            for step in range(300):
                 next_state, reward, done, truncated, _ = self.env.step(action)
                 next_state = utils.discretize_state(next_state, self.bins)
                                 
@@ -78,10 +86,12 @@ class Sarsa:
             
             episode_rewards.append(total_reward)
             
-            # TODO: Log average return per episode.
+            if LOG_episodes is not None:
+                LOG_episodes[episode+1] = total_reward
+            if LOG_time is not None:
+                LOG_time[episode+1] = time.time()
+            
             if episode % logger == 0:
-                print(f"Episode {episode}, Average Reward: {np.mean(episode_rewards[-logger:]):.2f}")
-                
-            # TODO: Break and log when completely solved. Add to logger the convergence episode.
+                print(f"Episode {episode}, Average Reward: {np.mean(episode_rewards[-logger:]):.2f}")          
         
         return episode_rewards

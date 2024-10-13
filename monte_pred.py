@@ -79,7 +79,7 @@ class MonteCarloQTable:
     # Helper to carry out the actual update of the q-table.
     def compute_update_q_table(self, state, action, G):
         if (state, action) not in self.returns:
-            self.returns[(state, action)] = [] # returns lookup for multi-episode
+            self.returns[(state, action)] = []      # returns lookup for multi-episode
         self.returns[(state, action)].append(G)
         self.Q[state + (action,)] = np.mean(self.returns[(state, action)])
     

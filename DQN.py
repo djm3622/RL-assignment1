@@ -55,7 +55,10 @@ class DQN:
     
     
     # Train from the memory.
-    # TODO
+    # Get previous state-action-reward-next_state pairs from memory.
+    # Get q-values from policy net. Get target q_values from the frozen target_net.
+    # Compute Bellman Eq. Backpropogate.
+    # If its been long enough update target net with current.
     def replay(self, batch_size):
         self.policy_net.train()
         
@@ -70,7 +73,6 @@ class DQN:
         dones = utils.preprocess(dones, s=False).unsqueeze(-1)
         truncated = utils.preprocess(truncated, s=False).unsqueeze(-1)
 
-        # TODO : comment
         current_q_values = self.policy_net(states).gather(1, actions) 
         next_q_values = self.target_net(next_states).max(1)[0].unsqueeze(1).detach()
         target_q_values = rewards + self.gamma * next_q_values * (1 - dones)
@@ -85,8 +87,10 @@ class DQN:
             self.target_net.load_state_dict(self.policy_net.state_dict())
 
     
-    # Train the DQN agent
-    # TODO
+    # Train the DQN agent.
+    # Given some episodes and some amount of steps (per each episode), 
+    # simulate environment, get contious state, take action, save pair to memory,
+    # replay to train the neural network.
     def train(self, episodes=10000, batch_size=128, logger=100, LOG_episodes=None, LOG_time=None):
         episode_rewards = []
         

@@ -39,7 +39,7 @@ def visualize_q_values_2D(Q, dim1, dim2, file):
     plt.ylabel(f'{variables[dim2]}')
     plt.savefig(file)
 
-# 
+# Visualization of the 3 state observations.
 def visualize_q_values_3D(Q, dim1, dim2, dim3, file, threshold=0.0):
     all_dims = set([0, 1, 2, 3]) 
     used_dims = set([dim1, dim2, dim3])
@@ -104,7 +104,26 @@ def plot_time_progress(time, obj, conv, file):
     plt.ylabel('Time (s)')
     plt.savefig(file)
     
-    
+
+# Plot simple bar charts to visual the weights.
+def visualize_weights(weights, features, title, file):
+    fig, ax = plt.subplots(figsize=(12, 6))
+        
+    x = np.arange(len(features))
+    width = 0.35
+
+    ax.bar(x - width/2, weights[0], width, label='Action 0 (Left)')
+    ax.bar(x + width/2, weights[1], width, label='Action 1 (Right)')
+
+    ax.set_ylabel('Weight Value')
+    ax.set_title(f'{title} Feature Weights')
+    ax.set_xticks(x)
+    ax.set_xticklabels(features, rotation=45, ha='right')
+    ax.legend()
+
+    plt.tight_layout()
+    plt.savefig(file)
+
 # TODO: function for stability?
 def __stability__():
     pass

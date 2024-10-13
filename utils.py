@@ -100,3 +100,13 @@ def load(file, model):
 # Save trained model to disk.
 def save(file, model):
     torch.save(model.state_dict(), file)
+    
+
+# Save the weights of the linear approximation.
+def save_linear(file, weights):
+    np.save(file, weights)
+    
+
+# Load the weights of the linear approximation.
+def load_linear(file):
+    return np.load(file)

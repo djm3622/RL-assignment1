@@ -12,7 +12,7 @@ The associated contructors for the agents are as follows (in order of position i
 
 Q-Learning
 | Variable | Required | Default Value | Type |
-|----------|----------|----------|
+|----------|----------|----------|----------|
 | Action Size | YES | NA | int |
 | State Size | YES | NA | int |
 | Environment | YES | NA | Gym-Object |

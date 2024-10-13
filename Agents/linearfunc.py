@@ -1,5 +1,5 @@
 import numpy as np
-import utils
+import Misc.utils
 import time
 
 class LinearApproximation:

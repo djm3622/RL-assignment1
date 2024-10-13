@@ -65,9 +65,13 @@ The following constructors have their arguments in order of position.
 A variable `LOG` is statically accessible and expects Numpy Arrays as entries in a dictionary.
 
 `flush_LOG(location)` := Flushes the `LOG` to the specified location.
+
 `read_LOG(location)` := Reads the `LOG` from the specified location.
+
 `visualize_q_values_2D(Q, dim1, dim2, file)` := Visualizes dimensions of a Q-table. It expects a file name to write the resulting plot to.
+
 `visualize_q_values_3D(Q, dim1, dim2, dim3, file, threshold=0.0` := Visualizes dimensions of a Q-table. For the most part the same as `visualize_q_values_2D`, but also includes thresholding to delete sub 0.0 Q-values from cluttering the plot.
+
 `plot_training_progress(episode_rewards, obj, conv, file)` :=
 
 See the associated juptyer notebooks for more details on how to use this repository.

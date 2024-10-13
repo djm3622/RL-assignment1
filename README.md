@@ -61,5 +61,12 @@ The following constructors have their arguments in order of position.
 | Memory | NO | 10000 | int | 
 | Taget Update Freq. | NO | 128 | int | 
 
+# Performance Evaluation
+This repository offers a file with an array of logging techniques. An exhaustive list is provided below.
+
+```
+flush_LOG
+```
+
 
 See the associated juptyer notebooks for more details on how to use this repository.

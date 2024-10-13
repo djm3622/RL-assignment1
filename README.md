@@ -9,6 +9,8 @@ Each agent is initialized with a constructor and then trained with their builtin
 Each `train` supports logging the rewards and time. To log these metrics you must pass in seperate log arrays and the builtin train function will update them inplace. 
 
 # Constructors
+The following constructors have their arguments in order of position. 
+
 ## Q-Learning
 | Variable | Required | Default Value | Type |
 |----------|----------|----------|----------|

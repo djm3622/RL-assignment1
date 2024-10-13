@@ -72,6 +72,11 @@ A variable `LOG` is statically accessible and expects Numpy Arrays as entries in
 
 `visualize_q_values_3D(Q, dim1, dim2, dim3, file, threshold=0.0` := Visualizes dimensions of a Q-table. For the most part the same as `visualize_q_values_2D`, but also includes thresholding to delete sub 0.0 Q-values from cluttering the plot.
 
-`plot_training_progress(episode_rewards, obj, conv, file)` :=
+`plot_training_progress(episode_rewards, obj, conv, file)` := Plots the rewards from the training of agents.
 
-See the associated juptyer notebooks for more details on how to use this repository.
+`plot_time_progress(episode_rewards, obj, conv, file)` := The same as `plot_training_progress` but expects time as input.
+
+`visualize_weights(weights, features, title, file)` := Visualize the weights for linear function approximators.
+
+# Example Usage
+See the associated juptyer notebooks for more examples on how to use this repository.

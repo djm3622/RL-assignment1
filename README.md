@@ -11,7 +11,7 @@ Each `train` supports logging the rewards and time. To log these metrics you mus
 # Constructors
 The following constructors have their arguments in order of position. 
 
-## Q-Learning/Sarsa
+### Q-Learning/Sarsa
 | Variable | Required | Default Value | Type |
 |----------|----------|----------|----------|
 | Action Size | YES | NA | int |
@@ -23,7 +23,7 @@ The following constructors have their arguments in order of position.
 | Epsilon | NO | 0.1 | float |
 | Epsilon Decay | NO | 0.9 | float | 
 
-## Monte-Carlo Q-Table
+### Monte-Carlo Q-Table
 | Variable | Required | Default Value | Type |
 |----------|----------|----------|----------|
 | Action Size | YES | NA | int |

@@ -11,7 +11,7 @@ Each `train` supports logging the rewards and time. To log these metrics you mus
 # Constructors
 The following constructors have their arguments in order of position. 
 
-## Q-Learning
+## Q-Learning/Sarsa
 | Variable | Required | Default Value | Type |
 |----------|----------|----------|----------|
 | Action Size | YES | NA | int |

@@ -62,11 +62,10 @@ The following constructors have their arguments in order of position.
 | Taget Update Freq. | NO | 128 | int | 
 
 # Performance Evaluation
-This repository offers a file with an array of logging techniques. An exhaustive list is provided below.
+This repository offers a file with an array of logging techniques. An exhaustive list is provided below. 
 
-```
-flush_LOG
-```
+A variable `LOG` is statically accessible and expects Numpy Arrays as entries in a dictionary.
 
+`flush_LOG(location)` := flushes the
 
 See the associated juptyer notebooks for more details on how to use this repository.
